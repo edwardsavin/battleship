@@ -7,6 +7,7 @@ interface GameboardType {
   placeShip: (ship: ShipType, x: number, y: number, direction: boolean) => void;
   receiveAttack: (x: number, y: number) => void;
   checkIfAllShipsSunk: () => boolean;
+  isShipPlaced: (x: number, y: number) => boolean;
 }
 
 function Gameboard(): GameboardType {
@@ -90,6 +91,7 @@ function Gameboard(): GameboardType {
     placeShip,
     receiveAttack,
     checkIfAllShipsSunk,
+    isShipPlaced,
   };
 }
 

@@ -55,4 +55,5 @@ function Player(name: string) {
   };
 }
 
+export type { PlayerType };
 export default Player;
