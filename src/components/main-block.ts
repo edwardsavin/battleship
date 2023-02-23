@@ -1,4 +1,4 @@
-import newGameBlock from "./newGame-block";
+import setupNewGameBlock from "./setupNewGame-block";
 
 // Populate the main block with all components
 function populateMainBlock() {
@@ -10,7 +10,7 @@ function populateMainBlock() {
   const contentWrapper = document.createElement("div");
   contentWrapper.classList.add("main__content-wrapper");
 
-  const newGameContainer = newGameBlock();
+  const newGameContainer = setupNewGameBlock();
   contentWrapper.appendChild(newGameContainer);
 
   mainContainer.appendChild(contentWrapper);
