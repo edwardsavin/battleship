@@ -6,6 +6,7 @@ interface GameboardType {
   board: BoardType;
   placeShip: (ship: ShipType, x: number, y: number, direction: string) => void;
   receiveAttack: (x: number, y: number) => void;
+  checkIfAllShipsSunk: () => boolean;
 }
 
 function Gameboard(): GameboardType {
@@ -67,10 +68,23 @@ function Gameboard(): GameboardType {
     }
   }
 
+  // If all ships are sunk, return true
+  function checkIfAllShipsSunk() {
+    return board.every((row) =>
+      row.every((cell) => {
+        if (cell && typeof cell !== "string") {
+          return cell.isSunk();
+        }
+        return true;
+      })
+    );
+  }
+
   return {
     board,
     placeShip,
     receiveAttack,
+    checkIfAllShipsSunk,
   };
 }
 
