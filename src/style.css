@@ -1,3 +1,43 @@
+:root {
+  --clr-50: hsl(210, 20%, 98%);
+  --clr-100: hsl(220, 14%, 96%);
+  --clr-200: hsl(220, 13%, 91%);
+  --clr-300: hsl(216, 12%, 84%);
+  --clr-400: hsl(218, 11%, 65%);
+  --clr-500: hsl(220, 9%, 46%);
+  --clr-600: hsl(215, 14%, 34%);
+  --clr-700: hsl(217, 19%, 27%);
+  --clr-800: hsl(215, 28%, 17%);
+  --clr-900: hsl(221, 39%, 11%);
+
+  --ff-primary: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
+    helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
+    sans-serif;
+
+  --ff-body: var(--ff-primary);
+  --ff-heading: var(--ff-primary);
+
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-bold: 700;
+
+  --fs-200: 0.5rem;
+  --fs-300: 0.75rem;
+  --fs-350: 0.875rem;
+  --fs-400: 1rem;
+  --fs-450: 1.15rem;
+  --fs-500: 1.25rem;
+  --fs-600: 1.5rem;
+  --fs-650: 1.6rem;
+  --fs-700: 1.75rem;
+  --fs-800: 2rem;
+  --fs-900: 2.25rem;
+  --fs-1000: 2.5rem;
+  --fs-1100: 2.75rem;
+  --fs-1200: 3rem;
+  --fs-1600: 4rem;
+}
+
 /* Box sizing rules */
 *,
 *::before,
