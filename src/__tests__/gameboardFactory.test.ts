@@ -65,4 +65,14 @@ describe("Gameboard", () => {
     gameboard.receiveAttack(5, 5);
     expect(gameboard.board[5][5]).toBe("miss");
   });
+
+  it("should return true if ship is sunk", () => {
+    const gameboard = Gameboard();
+    const cruiser = Ship(3, "Cruiser");
+    gameboard.placeShip(cruiser, 0, 0, "horizontal");
+    gameboard.receiveAttack(0, 0);
+    gameboard.receiveAttack(0, 1);
+    gameboard.receiveAttack(0, 2);
+    expect(cruiser.isSunk()).toBe(true);
+  });
 });

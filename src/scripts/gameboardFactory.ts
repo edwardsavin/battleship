@@ -1,8 +1,18 @@
 import { ShipType } from "./shipFactory";
 
-function Gameboard() {
+type BoardType = Array<Array<ShipType | null | string>>;
+
+interface GameboardType {
+  board: BoardType;
+  placeShip: (ship: ShipType, x: number, y: number, direction: string) => void;
+  receiveAttack: (x: number, y: number) => void;
+}
+
+function Gameboard(): GameboardType {
   // Create board of 10x10
-  const board = Array(10).fill(Array(10).fill(null));
+  const board: BoardType = Array.from({ length: 10 }, () =>
+    Array.from({ length: 10 }, () => null)
+  );
 
   function isShipPlaced(x: number, y: number) {
     return board[x][y] !== null;
@@ -48,9 +58,11 @@ function Gameboard() {
       return;
     }
 
-    // Check if ship is placed at coordinates
-    if (isShipPlaced(x, y)) {
-      board[x][y].hit();
+    const cell = board[x][y];
+
+    // If ship is placed at coordinates, mark as hit
+    if (cell && typeof cell !== "string") {
+      cell.hit();
       markHit(x, y);
     }
   }
