@@ -1,4 +1,12 @@
-function Ship(length: number, name: string) {
+interface ShipType {
+  length: number;
+  name: string;
+  isSunk: () => boolean;
+  hit: () => void;
+  getHits: () => number;
+}
+
+function Ship(length: number, name: string): ShipType {
   let hits = 0;
 
   // Check if ship is sunk
@@ -24,14 +32,6 @@ function Ship(length: number, name: string) {
     hit,
     getHits,
   };
-}
-
-interface ShipType {
-  length: number;
-  name: string;
-  isSunk: () => boolean;
-  hit: () => void;
-  getHits: () => number;
 }
 
 export type { ShipType };

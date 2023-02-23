@@ -4,7 +4,7 @@ type BoardType = Array<Array<ShipType | null | string>>;
 
 interface GameboardType {
   board: BoardType;
-  placeShip: (ship: ShipType, x: number, y: number, direction: string) => void;
+  placeShip: (ship: ShipType, x: number, y: number, direction: boolean) => void;
   receiveAttack: (x: number, y: number) => void;
   checkIfAllShipsSunk: () => boolean;
 }
@@ -32,16 +32,21 @@ function Gameboard(): GameboardType {
   }
 
   // Place ship at coordinates by using Ship factory
-  function placeShip(ship: ShipType, x: number, y: number, direction: string) {
+  function placeShip(
+    ship: ShipType,
+    x: number,
+    y: number,
+    isHorizontal: boolean
+  ) {
     // Check if another ship is already placed at coordinates
     if (isShipPlaced(x, y))
       throw new Error("Ship already placed at coordinates");
 
-    if (direction === "horizontal") {
+    if (isHorizontal) {
       for (let i = 0; i < ship.length; i += 1) {
         board[x][y + i] = ship;
       }
-    } else if (direction === "vertical") {
+    } else if (!isHorizontal) {
       for (let i = 0; i < ship.length; i += 1) {
         board[x + i][y] = ship;
       }

@@ -6,14 +6,14 @@ describe("Gameboard", () => {
   it("should place ship at correct coordinates on horizontal", () => {
     const gameboard = Gameboard();
     const submarine = Ship(3, "Submarine");
-    gameboard.placeShip(submarine, 0, 0, "horizontal");
+    gameboard.placeShip(submarine, 0, 0, true);
     expect(gameboard.board[0][0]).toBe(submarine);
   });
 
   it("should place ship at correct coordinates on vertical", () => {
     const gameboard = Gameboard();
     const submarine = Ship(3, "Submarine");
-    gameboard.placeShip(submarine, 0, 0, "vertical");
+    gameboard.placeShip(submarine, 0, 0, false);
     expect(gameboard.board[0][0]).toBe(submarine);
   });
 
@@ -21,14 +21,14 @@ describe("Gameboard", () => {
     const gameboard = Gameboard();
     const cruiser = Ship(3, "Cruiser");
     const submarine = Ship(3, "Submarine");
-    gameboard.placeShip(submarine, 0, 0, "horizontal");
-    expect(() => gameboard.placeShip(cruiser, 0, 0, "horizontal")).toThrow();
+    gameboard.placeShip(submarine, 0, 0, true);
+    expect(() => gameboard.placeShip(cruiser, 0, 0, true)).toThrow();
   });
 
   it("should hit the correct ship", () => {
     const gameboard = Gameboard();
     const cruiser = Ship(3, "Cruiser");
-    gameboard.placeShip(cruiser, 0, 0, "horizontal");
+    gameboard.placeShip(cruiser, 0, 0, true);
     gameboard.receiveAttack(0, 0);
     expect(cruiser.getHits()).toBe(1);
   });
@@ -36,7 +36,7 @@ describe("Gameboard", () => {
   it("should not hit the ship if no ship is placed at coordinates", () => {
     const gameboard = Gameboard();
     const cruiser = Ship(3, "Cruiser");
-    gameboard.placeShip(cruiser, 0, 0, "horizontal");
+    gameboard.placeShip(cruiser, 0, 0, true);
     gameboard.receiveAttack(5, 5);
     expect(cruiser.getHits()).toBe(0);
   });
@@ -44,7 +44,7 @@ describe("Gameboard", () => {
   it("should not hit the ship if already hit at specific coordinates", () => {
     const gameboard = Gameboard();
     const cruiser = Ship(3, "Cruiser");
-    gameboard.placeShip(cruiser, 0, 0, "horizontal");
+    gameboard.placeShip(cruiser, 0, 0, true);
     gameboard.receiveAttack(0, 0);
     gameboard.receiveAttack(0, 0);
     expect(cruiser.getHits()).toBe(1);
@@ -53,7 +53,7 @@ describe("Gameboard", () => {
   it("should record hit at coordinates", () => {
     const gameboard = Gameboard();
     const cruiser = Ship(3, "Cruiser");
-    gameboard.placeShip(cruiser, 0, 0, "horizontal");
+    gameboard.placeShip(cruiser, 0, 0, true);
     gameboard.receiveAttack(0, 0);
     expect(gameboard.board[0][0]).toBe("hit");
   });
@@ -61,7 +61,7 @@ describe("Gameboard", () => {
   it("should record miss at coordinates", () => {
     const gameboard = Gameboard();
     const cruiser = Ship(3, "Cruiser");
-    gameboard.placeShip(cruiser, 0, 0, "horizontal");
+    gameboard.placeShip(cruiser, 0, 0, true);
     gameboard.receiveAttack(5, 5);
     expect(gameboard.board[5][5]).toBe("miss");
   });
@@ -69,7 +69,7 @@ describe("Gameboard", () => {
   it("should return isSunk() true if ship is sunk", () => {
     const gameboard = Gameboard();
     const cruiser = Ship(3, "Cruiser");
-    gameboard.placeShip(cruiser, 0, 0, "horizontal");
+    gameboard.placeShip(cruiser, 0, 0, true);
     gameboard.receiveAttack(0, 0);
     gameboard.receiveAttack(0, 1);
     gameboard.receiveAttack(0, 2);
@@ -80,8 +80,8 @@ describe("Gameboard", () => {
     const gameboard = Gameboard();
     const cruiser = Ship(3, "Cruiser");
     const submarine = Ship(3, "Submarine");
-    gameboard.placeShip(cruiser, 0, 0, "horizontal");
-    gameboard.placeShip(submarine, 1, 0, "horizontal");
+    gameboard.placeShip(cruiser, 0, 0, true);
+    gameboard.placeShip(submarine, 1, 0, true);
     gameboard.receiveAttack(0, 0);
     gameboard.receiveAttack(0, 1);
     gameboard.receiveAttack(0, 2);
@@ -95,8 +95,8 @@ describe("Gameboard", () => {
     const gameboard = Gameboard();
     const cruiser = Ship(3, "Cruiser");
     const submarine = Ship(3, "Submarine");
-    gameboard.placeShip(cruiser, 0, 0, "horizontal");
-    gameboard.placeShip(submarine, 1, 0, "horizontal");
+    gameboard.placeShip(cruiser, 0, 0, true);
+    gameboard.placeShip(submarine, 1, 0, true);
     gameboard.receiveAttack(0, 0);
     gameboard.receiveAttack(0, 1);
     gameboard.receiveAttack(0, 2);
