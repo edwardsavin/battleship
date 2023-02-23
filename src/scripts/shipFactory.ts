@@ -26,4 +26,13 @@ function Ship(length: number, name: string) {
   };
 }
 
+interface ShipType {
+  length: number;
+  name: string;
+  isSunk: () => boolean;
+  hit: () => void;
+  getHits: () => number;
+}
+
+export type { ShipType };
 export default Ship;
