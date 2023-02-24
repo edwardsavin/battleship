@@ -138,6 +138,26 @@ svg {
   border: 1px solid var(--clr-500);
 }
 
+.ship[data-ship="Carrier"] {
+  background-color: blue;
+}
+
+.ship[data-ship="Battleship"] {
+  background-color: green;
+}
+
+.ship[data-ship="Destroyer"] {
+  background-color: saddlebrown;
+}
+
+.ship[data-ship="Submarine"] {
+  background-color: orange;
+}
+
+.ship[data-ship="Patrol Boat"] {
+  background-color: indigo;
+}
+
 .board__cell {
   border: 1px solid var(--clr-500);
   background-color: var(--clr-50);
