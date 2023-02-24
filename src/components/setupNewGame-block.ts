@@ -1,4 +1,4 @@
-import createGameBlock from "./game-block";
+import setupPlayerShips from "./setupPlayerShips-block";
 
 function setupNewGameBlock() {
   const newGameContainer = document.createElement("div");
@@ -21,7 +21,7 @@ function setupNewGameBlock() {
     }
     const playerName = inputPlayerName.value;
 
-    createGameBlock(playerName);
+    setupPlayerShips(playerName);
   });
 
   newGameContainer.appendChild(inputPlayerName);

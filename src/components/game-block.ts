@@ -1,11 +1,5 @@
 import renderBoard from "./renderBoard";
-
-function removeSetupNewGameBlock() {
-  const newGameContainer = document.querySelector(
-    ".content-wrapper__new-game-container"
-  );
-  newGameContainer?.remove();
-}
+import { GameType } from "../scripts/gameFactory";
 
 function getMainContentWrapper() {
   const mainContentWrapper = document.querySelector(".main__content-wrapper");
@@ -25,8 +19,9 @@ function createBoardTitle(playerName: string) {
   return boardTitleContainer;
 }
 
-function createGameBlock(playerName: string) {
-  removeSetupNewGameBlock();
+function createGameBlock(game: GameType) {
+  const playerName = game.player.name;
+  const computerName = game.computer.name;
 
   const mainContentWrapper = getMainContentWrapper();
 
@@ -36,8 +31,8 @@ function createGameBlock(playerName: string) {
   const playerBoardTitle = createBoardTitle(playerName);
   const playerBoard = renderBoard(playerName);
 
-  const computerBoardTitle = createBoardTitle("Computer");
-  const computerBoard = renderBoard("Computer");
+  const computerBoardTitle = createBoardTitle(computerName);
+  const computerBoard = renderBoard(computerName);
 
   gameContainer.appendChild(playerBoardTitle);
   gameContainer.appendChild(playerBoard);
