@@ -143,3 +143,8 @@ svg {
   background-color: var(--clr-50);
   cursor: pointer;
 }
+
+.board__cell[data-valid-placement="false"] {
+  cursor: not-allowed;
+  background-color: rgb(199, 16, 16);
+}
