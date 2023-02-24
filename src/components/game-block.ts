@@ -30,6 +30,7 @@ function createGameBlock(game: GameType, tempBoard: HTMLDivElement) {
 
   const playerBoardTitle = createBoardTitle(playerName);
   const playerBoard = tempBoard;
+  playerBoard.classList.remove("board-temp");
 
   const computerBoardTitle = createBoardTitle(computerName);
   const computerBoard = renderBoard(computerName);
