@@ -19,7 +19,7 @@ function createBoardTitle(playerName: string) {
   return boardTitleContainer;
 }
 
-function createGameBlock(game: GameType) {
+function createGameBlock(game: GameType, tempBoard: HTMLDivElement) {
   const playerName = game.player.name;
   const computerName = game.computer.name;
 
@@ -29,7 +29,7 @@ function createGameBlock(game: GameType) {
   gameContainer.classList.add("content-wrapper__game-container");
 
   const playerBoardTitle = createBoardTitle(playerName);
-  const playerBoard = renderBoard(playerName);
+  const playerBoard = tempBoard;
 
   const computerBoardTitle = createBoardTitle(computerName);
   const computerBoard = renderBoard(computerName);

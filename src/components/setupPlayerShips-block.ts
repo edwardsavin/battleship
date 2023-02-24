@@ -177,7 +177,7 @@ function setupPlayerShips(playerName: string) {
       tempBoardTitle.textContent = `Place your ${shipToPlace.name}`;
     } else {
       tempBoardContainer.remove();
-      createGameBlock(game);
+      createGameBlock(game, tempBoard);
     }
   });
 
