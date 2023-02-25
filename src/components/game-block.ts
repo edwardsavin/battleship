@@ -29,11 +29,11 @@ function createGameBlock(game: GameType, tempBoard: HTMLDivElement) {
   gameContainer.classList.add("content-wrapper__game-container");
 
   const playerBoardTitle = createBoardTitle(playerName);
-  const playerBoard = tempBoard;
+  const playerBoard = renderBoard(playerName, game.playerShips);
   playerBoard.classList.remove("board-temp");
 
   const computerBoardTitle = createBoardTitle(computerName);
-  const computerBoard = renderBoard(computerName);
+  const computerBoard = renderBoard(computerName, game.computerShips);
 
   gameContainer.appendChild(playerBoardTitle);
   gameContainer.appendChild(playerBoard);
