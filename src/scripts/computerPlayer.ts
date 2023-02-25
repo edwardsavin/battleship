@@ -1,26 +1,61 @@
 import Player, { PlayerType } from "./playerFactory";
 
+// Get all valid ship placements for a given ship length
+function getValidShipPlacements(
+  computer: PlayerType,
+  shipLength: number,
+  boardSize: number
+): Array<[number, number, boolean]> {
+  const result: Array<[number, number, boolean]> = [];
+
+  for (let x = 0; x < boardSize; x += 1) {
+    for (let y = 0; y < boardSize; y += 1) {
+      // Check if ship can be placed horizontally
+      if (y + shipLength <= boardSize) {
+        let isValid = true;
+
+        for (let i = 0; i < shipLength; i += 1) {
+          if (computer.gameboard.board[x][y + i] !== null) {
+            isValid = false;
+            break;
+          }
+        }
+
+        if (isValid) {
+          result.push([x, y, true]);
+        }
+      }
+
+      // Check if ship can be placed vertically
+      if (x + shipLength <= boardSize) {
+        let isValid = true;
+
+        for (let i = 0; i < shipLength; i += 1) {
+          if (computer.gameboard.board[x + i][y] !== null) {
+            isValid = false;
+            break;
+          }
+        }
+
+        if (isValid) {
+          result.push([x, y, false]);
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
 function createComputerPlayer() {
   const computer = Player("Computer");
 
-  // Place ships randomly
+  // Place ships randomly and check if is a valid placement
   function placeShips() {
     computer.ships.forEach((ship) => {
-      let isHorizontal = Math.random() >= 0.5;
-      let x = Math.floor(Math.random() * 10);
-      let y = Math.floor(Math.random() * 10);
-
-      // Check if ship is already placed at coordinates or if ship is placed out of bounds
-      while (
-        computer.gameboard.isShipPlaced(x, y) ||
-        (isHorizontal && y + ship.length > 10) ||
-        (!isHorizontal && x + ship.length > 10)
-      ) {
-        isHorizontal = Math.random() >= 0.5;
-        x = Math.floor(Math.random() * 10);
-        y = Math.floor(Math.random() * 10);
-      }
-
+      const validPlacements = getValidShipPlacements(computer, ship.length, 10);
+      const [x, y, isHorizontal] =
+        validPlacements[Math.floor(Math.random() * validPlacements.length)];
       computer.placeShip(ship, x, y, isHorizontal);
     });
   }
