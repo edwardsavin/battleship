@@ -115,16 +115,13 @@ function setupPlayerShips(playerName: string) {
     validateShipPlacement(tempBoard, shipToPlace, isHorizontal, target, x, y);
   }
 
-  tempBoard.addEventListener("mouseover", handleMouseOver);
-  tempBoard.addEventListener("touchstart", handleMouseOver);
-
-  tempBoard.addEventListener("mouseout", (e) => {
+  function handleMouseOut(e: MouseEvent) {
     const target = e.target as HTMLDivElement;
     delete target.dataset.validPlacement;
-  });
+  }
 
   // Add event listener to each cell in the temporary board
-  tempBoard.addEventListener("click", (e) => {
+  function handleMouseClick(e: MouseEvent) {
     const target = e.target as HTMLDivElement;
     const x = Number(target.dataset.x);
     const y = Number(target.dataset.y);
@@ -183,9 +180,19 @@ function setupPlayerShips(playerName: string) {
       tempBoardTitle.textContent = `Place your ${shipToPlace.name}`;
     } else {
       tempBoardContainer.remove();
+      tempBoard.removeEventListener("mouseover", handleMouseOver);
+      tempBoard.removeEventListener("touchstart", handleMouseOver);
+      tempBoard.removeEventListener("mouseout", handleMouseOut);
+      tempBoard.removeEventListener("click", handleMouseClick);
+
       createGameBlock(game, tempBoard);
     }
-  });
+  }
+
+  tempBoard.addEventListener("mouseover", handleMouseOver);
+  tempBoard.addEventListener("touchstart", handleMouseOver);
+  tempBoard.addEventListener("mouseout", handleMouseOut);
+  tempBoard.addEventListener("click", handleMouseClick);
 
   return tempBoardContainer;
 }
