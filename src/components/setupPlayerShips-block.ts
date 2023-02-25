@@ -107,13 +107,16 @@ function setupPlayerShips(playerName: string) {
     }
   });
 
-  tempBoard.addEventListener("mouseover", (e) => {
+  function handleMouseOver(e: MouseEvent | TouchEvent) {
     const target = e.target as HTMLDivElement;
     const x = Number(target.dataset.x);
     const y = Number(target.dataset.y);
 
     validateShipPlacement(tempBoard, shipToPlace, isHorizontal, target, x, y);
-  });
+  }
+
+  tempBoard.addEventListener("mouseover", handleMouseOver);
+  tempBoard.addEventListener("touchstart", handleMouseOver);
 
   tempBoard.addEventListener("mouseout", (e) => {
     const target = e.target as HTMLDivElement;
@@ -128,16 +131,19 @@ function setupPlayerShips(playerName: string) {
 
     if (isOutOfBounds(x, y, shipToPlace.length, isHorizontal)) {
       alert("Ship is out of bounds");
+      delete target.dataset.validPlacement;
       return;
     }
 
     if (isCellOccupied(target)) {
       alert("This cell is already occupied by a ship");
+      delete target.dataset.validPlacement;
       return;
     }
 
     if (!isPlacementValid(target)) {
       alert("Cannot place ship on top of another ship");
+      delete target.dataset.validPlacement;
       return;
     }
 
