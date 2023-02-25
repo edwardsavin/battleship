@@ -4,10 +4,13 @@ interface ShipType {
   isSunk: () => boolean;
   hit: () => void;
   getHits: () => number;
+  changeCoordinates: (x: number, y: number) => void;
+  coordinates: number[][];
 }
 
 function Ship(length: number, name: string): ShipType {
   let hits = 0;
+  const coordinates: number[][] = [];
 
   // Check if ship is sunk
   function isSunk() {
@@ -25,12 +28,18 @@ function Ship(length: number, name: string): ShipType {
     return hits;
   }
 
+  function changeCoordinates(x: number, y: number) {
+    coordinates.push([x, y]);
+  }
+
   return {
     length,
     name,
     isSunk,
     hit,
     getHits,
+    changeCoordinates,
+    coordinates,
   };
 }
 

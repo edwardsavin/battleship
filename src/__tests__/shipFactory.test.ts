@@ -10,6 +10,8 @@ describe("Ship", () => {
       isSunk: expect.any(Function),
       hit: expect.any(Function),
       getHits: expect.any(Function),
+      changeCoordinates: expect.any(Function),
+      coordinates: [],
     });
   });
 

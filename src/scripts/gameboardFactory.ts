@@ -46,10 +46,12 @@ function Gameboard(): GameboardType {
     if (isHorizontal) {
       for (let i = 0; i < ship.length; i += 1) {
         board[x][y + i] = ship;
+        ship.changeCoordinates(x, y + i);
       }
     } else if (!isHorizontal) {
       for (let i = 0; i < ship.length; i += 1) {
         board[x + i][y] = ship;
+        ship.changeCoordinates(x + i, y);
       }
     }
   }
