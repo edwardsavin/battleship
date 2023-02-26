@@ -168,3 +168,11 @@ svg {
   cursor: not-allowed;
   background-color: rgb(199, 16, 16);
 }
+
+.miss {
+  background-color: gray !important;
+}
+
+.hit {
+  background-color: red !important;
+}

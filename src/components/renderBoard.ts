@@ -1,3 +1,16 @@
+// Create 10x10 grid and add coordinates to each cell
+function createGridDOM(x: number, y: number, board: HTMLElement) {
+  for (let i = 0; i < x; i += 1) {
+    for (let j = 0; j < y; j += 1) {
+      const cell = document.createElement("div");
+      cell.classList.add("board__cell");
+      cell.setAttribute("data-x", `${i}`);
+      cell.setAttribute("data-y", `${j}`);
+      board.appendChild(cell);
+    }
+  }
+}
+
 function renderBoard(
   playerName: string,
   shipsReady?: {
@@ -9,18 +22,9 @@ function renderBoard(
   const board = document.createElement("div");
   board.classList.add(`board-${playerName}`);
 
-  // Create 10x10 grid and add coordinates to each cell
-  for (let i = 0; i < 10; i += 1) {
-    for (let j = 0; j < 10; j += 1) {
-      const cell = document.createElement("div");
-      cell.classList.add("board__cell");
-      cell.setAttribute("data-x", `${i}`);
-      cell.setAttribute("data-y", `${j}`);
-      board.appendChild(cell);
-    }
-  }
+  createGridDOM(10, 10, board);
 
-  // Add the computer's ships to the board
+  // Add the player's ships to the board
   if (shipsReady) {
     shipsReady.forEach((ship) => {
       ship.coordinates.forEach((coordinate) => {

@@ -75,12 +75,16 @@ function createComputerPlayer() {
     }
 
     computer.attack(x, y, enemy);
+
+    // Pass the x and y coordinates of the attack
+    return [x, y];
   }
 
   return {
     ...computer,
     placeShips,
     randomAttack,
+    isComputer: true,
   };
 }
 

@@ -185,7 +185,7 @@ function setupPlayerShips(playerName: string) {
       tempBoard.removeEventListener("mouseout", handleMouseOut);
       tempBoard.removeEventListener("click", handleMouseClick);
 
-      createGameBlock(game, tempBoard);
+      createGameBlock(game);
     }
   }
 
