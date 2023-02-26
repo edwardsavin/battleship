@@ -1,5 +1,7 @@
 import renderBoard from "./renderBoard";
 import { GameType } from "../scripts/gameFactory";
+// eslint-disable-next-line import/no-cycle
+import setupPlayerShips from "./setupPlayerShips-block";
 
 function getMainContentWrapper() {
   const mainContentWrapper = document.querySelector(".main__content-wrapper");
@@ -19,6 +21,41 @@ function createBoardTitle(playerName: string) {
   return boardTitleContainer;
 }
 
+// Check if the game is over
+// If the game is over, display the winner and ask the player if they want to play again
+function checkIfGameOver(
+  player: any,
+  enemy: any,
+  mainContentWrapper: Element | null
+) {
+  if (enemy.gameboard.checkIfAllShipsSunk()) {
+    const gameContainer = document.querySelector(
+      ".content-wrapper__game-container"
+    );
+    gameContainer?.remove();
+
+    const gameOver = document.createElement("h1");
+    gameOver.classList.add("game-over");
+    gameOver.textContent = `${player.name} wins!`;
+
+    mainContentWrapper?.appendChild(gameOver);
+
+    // Ask the player if they want to play again
+    const playAgain = document.createElement("button");
+    playAgain.classList.add("play-again");
+    playAgain.textContent = "Play Again";
+
+    mainContentWrapper?.appendChild(playAgain);
+
+    playAgain.addEventListener("click", () => {
+      gameOver.remove();
+      playAgain.remove();
+
+      setupPlayerShips(player.name);
+    });
+  }
+}
+
 function playerAttackDOM(x: number, y: number, player: any, enemy: any) {
   const cell = document.querySelector(
     `.board-${enemy.name} [data-x="${x}"][data-y="${y}"]`
@@ -33,22 +70,7 @@ function playerAttackDOM(x: number, y: number, player: any, enemy: any) {
     }
   }
 
-  // Check if the game is over
-  if (enemy.gameboard.checkIfAllShipsSunk()) {
-    const mainContentWrapper = getMainContentWrapper();
-    const gameContainer = document.querySelector(
-      ".content-wrapper__game-container"
-    );
-    gameContainer?.remove();
-
-    const gameOver = document.createElement("h1");
-    gameOver.classList.add("game-over");
-    gameOver.textContent = `${player.name} wins!`;
-
-    mainContentWrapper?.appendChild(gameOver);
-
-    return;
-  }
+  checkIfGameOver(player, enemy, getMainContentWrapper());
 
   // If the enemy is a computer, then it's the computer's turn to attack
   if (enemy.isComputer) {
