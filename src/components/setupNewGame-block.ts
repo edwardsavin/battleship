@@ -14,15 +14,21 @@ function setupNewGameBlock() {
   buttonStartGame.classList.add("new-game__button-start-game");
   buttonStartGame.textContent = "Start";
 
-  buttonStartGame.addEventListener("click", () => {
+  function handleStartGameTrigger() {
     if (inputPlayerName.value === "") {
       alert("Please enter your name");
       return;
     }
     const playerName = inputPlayerName.value;
-
     setupPlayerShips(playerName);
+  }
+
+  inputPlayerName.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") {
+      handleStartGameTrigger();
+    }
   });
+  buttonStartGame.addEventListener("click", handleStartGameTrigger);
 
   newGameContainer.appendChild(inputPlayerName);
   newGameContainer.appendChild(buttonStartGame);
