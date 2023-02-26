@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import createGameBlock from "./game-block";
 import renderBoard from "./renderBoard";
 import Game from "../scripts/gameFactory";
@@ -27,6 +28,57 @@ function isPlacementValid(target: HTMLDivElement): boolean {
   return target.dataset.validPlacement === "true";
 }
 
+function getTargetCell(
+  x: number,
+  y: number,
+  i: number,
+  isHorizontal: boolean,
+  board: HTMLDivElement
+): HTMLDivElement | null {
+  return isHorizontal
+    ? (board.querySelector(
+        `[data-x="${x}"][data-y="${y + i}"]`
+      ) as HTMLDivElement)
+    : (board.querySelector(
+        `[data-x="${x + i}"][data-y="${y}"]`
+      ) as HTMLDivElement);
+}
+
+// If the placement is valid, add a data attribute named "hover-ship" to the target cells with the ship's name
+function addHoverShipDataAttribute(
+  x: number,
+  y: number,
+  isHorizontal: boolean,
+  tempBoard: HTMLDivElement,
+  shipToPlace: ShipType
+) {
+  for (let i = 0; i < shipToPlace.length; i += 1) {
+    const targetCell = getTargetCell(x, y, i, isHorizontal, tempBoard);
+    if (targetCell) {
+      targetCell.dataset.hoverShip = shipToPlace.name;
+    }
+  }
+}
+
+// Delete the "hover-ship" data attribute from the target cells when the mouse leaves the cell
+function deleteHoverShipDataAttribute(
+  x: number,
+  y: number,
+  isHorizontal: boolean,
+  tempBoard: HTMLDivElement,
+  shipToPlace: ShipType,
+  updatedTarget: HTMLDivElement
+) {
+  updatedTarget.addEventListener("mouseleave", () => {
+    for (let i = 0; i < shipToPlace.length; i += 1) {
+      const targetCell = getTargetCell(x, y, i, isHorizontal, tempBoard);
+      if (targetCell) {
+        delete targetCell.dataset.hoverShip;
+      }
+    }
+  });
+}
+
 function validateShipPlacement(
   tempBoard: HTMLDivElement,
   shipToPlace: ShipType,
@@ -45,20 +97,24 @@ function validateShipPlacement(
 
   // Check if any of the adjacent cells are occupied
   for (let i = 0; i < shipToPlace.length; i += 1) {
-    const adjacentCell = isHorizontal
-      ? (tempBoard.querySelector(
-          `[data-x="${x}"][data-y="${y + i}"]`
-        ) as HTMLDivElement)
-      : (tempBoard.querySelector(
-          `[data-x="${x + i}"][data-y="${y}"]`
-        ) as HTMLDivElement);
+    const adjacentCell = getTargetCell(x, y, i, isHorizontal, tempBoard);
 
     // If the adjacent cell is occupied, the placement is invalid
-    if (adjacentCell && adjacentCell.classList.contains("ship")) {
+    if (adjacentCell && isCellOccupied(adjacentCell)) {
       updatedTarget.dataset.validPlacement = "false";
       return;
     }
   }
+
+  addHoverShipDataAttribute(x, y, isHorizontal, tempBoard, shipToPlace);
+  deleteHoverShipDataAttribute(
+    x,
+    y,
+    isHorizontal,
+    tempBoard,
+    shipToPlace,
+    updatedTarget
+  );
 
   updatedTarget.dataset.validPlacement = "true";
 }

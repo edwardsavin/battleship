@@ -138,23 +138,30 @@ svg {
   border: 1px solid var(--clr-500);
 }
 
-.ship[data-ship="Carrier"] {
+.ship[data-ship="Carrier"],
+.board__cell[data-hover-ship="Carrier"] {
   background-color: blue;
 }
 
-.ship[data-ship="Battleship"] {
+.ship[data-ship="Battleship"],
+.board__cell[data-hover-ship="Battleship"] {
   background-color: green;
 }
 
-.ship[data-ship="Destroyer"] {
+.ship[data-ship="Destroyer"],
+.board__cell[data-hover-ship="Destroyer"] {
   background-color: saddlebrown;
 }
 
-.ship[data-ship="Submarine"] {
+.ship[data-ship="Submarine"],
+.board__cell[data-hover-ship="Submarine"]
+ {
   background-color: orange;
 }
 
-.ship[data-ship="Patrol Boat"] {
+.ship[data-ship="Patrol Boat"],
+.board__cell[data-hover-ship="Patrol Boat"]
+ {
   background-color: indigo;
 }
 
