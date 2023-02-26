@@ -1,5 +1,7 @@
 import Player, { PlayerType } from "./playerFactory";
 
+type ComputerType = ReturnType<typeof createComputerPlayer>;
+
 // Get all valid ship placements for a given ship length
 function getValidShipPlacements(
   computer: PlayerType,
@@ -88,4 +90,5 @@ function createComputerPlayer() {
   };
 }
 
+export type { ComputerType };
 export default createComputerPlayer;

@@ -1,5 +1,7 @@
 import renderBoard from "./renderBoard";
 import { GameType } from "../scripts/gameFactory";
+import { PlayerType } from "../scripts/playerFactory";
+import { ComputerType } from "../scripts/computerPlayer";
 // eslint-disable-next-line import/no-cycle
 import setupPlayerShips from "./setupPlayerShips-block";
 
@@ -24,8 +26,8 @@ function createBoardTitle(playerName: string) {
 // Check if the game is over
 // If the game is over, display the winner and ask the player if they want to play again
 function checkIfGameOver(
-  player: any,
-  enemy: any,
+  player: PlayerType,
+  enemy: PlayerType,
   mainContentWrapper: Element | null
 ) {
   if (enemy.gameboard.checkIfAllShipsSunk()) {
@@ -56,7 +58,12 @@ function checkIfGameOver(
   }
 }
 
-function playerAttackDOM(x: number, y: number, player: any, enemy: any) {
+function playerAttackDOM(
+  x: number,
+  y: number,
+  player: PlayerType,
+  enemy: ComputerType | PlayerType
+) {
   const cell = document.querySelector(
     `.board-${enemy.name} [data-x="${x}"][data-y="${y}"]`
   );
@@ -73,7 +80,7 @@ function playerAttackDOM(x: number, y: number, player: any, enemy: any) {
   checkIfGameOver(player, enemy, getMainContentWrapper());
 
   // If the enemy is a computer, then it's the computer's turn to attack
-  if (enemy.isComputer) {
+  if ("isComputer" in enemy) {
     const computerRandomAttack = enemy.randomAttack(player);
     const [randomX, randomY] = computerRandomAttack;
     playerAttackDOM(randomX, randomY, enemy, player);
