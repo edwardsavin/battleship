@@ -53,7 +53,11 @@ function checkIfGameOver(
       gameOver.remove();
       playAgain.remove();
 
-      setupPlayerShips(player.name);
+      if ("isComputer" in player) {
+        setupPlayerShips(enemy.name);
+      } else {
+        setupPlayerShips(player.name);
+      }
     });
   }
 }
