@@ -2,6 +2,62 @@ import Player, { PlayerType } from "./playerFactory";
 
 type ComputerType = ReturnType<typeof createComputerPlayer>;
 
+// Check if ship can be placed horizontally and pass the coordinates and orientation
+function getValidHorizontalShipPlacements(
+  computer: PlayerType,
+  shipLength: number,
+  x: number,
+  y: number,
+  boardSize: number
+): Array<[number, number, boolean]> {
+  const result: Array<[number, number, boolean]> = [];
+
+  if (y + shipLength <= boardSize) {
+    let isValid = true;
+
+    for (let i = 0; i < shipLength; i += 1) {
+      if (computer.gameboard.board[x][y + i] !== null) {
+        isValid = false;
+        break;
+      }
+    }
+
+    if (isValid) {
+      result.push([x, y, true]);
+    }
+  }
+
+  return result;
+}
+
+// Check if ship can be placed vertically and pass the coordinates and orientation
+function getValidVerticalShipPlacements(
+  computer: PlayerType,
+  shipLength: number,
+  x: number,
+  y: number,
+  boardSize: number
+): Array<[number, number, boolean]> {
+  const result: Array<[number, number, boolean]> = [];
+
+  if (x + shipLength <= boardSize) {
+    let isValid = true;
+
+    for (let i = 0; i < shipLength; i += 1) {
+      if (computer.gameboard.board[x + i][y] !== null) {
+        isValid = false;
+        break;
+      }
+    }
+
+    if (isValid) {
+      result.push([x, y, false]);
+    }
+  }
+
+  return result;
+}
+
 // Get all valid ship placements for a given ship length
 function getValidShipPlacements(
   computer: PlayerType,
@@ -12,37 +68,16 @@ function getValidShipPlacements(
 
   for (let x = 0; x < boardSize; x += 1) {
     for (let y = 0; y < boardSize; y += 1) {
-      // Check if ship can be placed horizontally
-      if (y + shipLength <= boardSize) {
-        let isValid = true;
-
-        for (let i = 0; i < shipLength; i += 1) {
-          if (computer.gameboard.board[x][y + i] !== null) {
-            isValid = false;
-            break;
-          }
-        }
-
-        if (isValid) {
-          result.push([x, y, true]);
-        }
-      }
-
-      // Check if ship can be placed vertically
-      if (x + shipLength <= boardSize) {
-        let isValid = true;
-
-        for (let i = 0; i < shipLength; i += 1) {
-          if (computer.gameboard.board[x + i][y] !== null) {
-            isValid = false;
-            break;
-          }
-        }
-
-        if (isValid) {
-          result.push([x, y, false]);
-        }
-      }
+      result.push(
+        ...getValidHorizontalShipPlacements(
+          computer,
+          shipLength,
+          x,
+          y,
+          boardSize
+        ),
+        ...getValidVerticalShipPlacements(computer, shipLength, x, y, boardSize)
+      );
     }
   }
 
