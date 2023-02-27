@@ -85,7 +85,7 @@ function playerAttackDOM(
 
   // If the enemy is a computer, then it's the computer's turn to attack
   if ("isComputer" in enemy) {
-    const computerRandomAttack = enemy.randomAttack(player);
+    const computerRandomAttack = enemy.smartAttack(player);
     const [randomX, randomY] = computerRandomAttack;
     playerAttackDOM(randomX, randomY, enemy, player);
   }
