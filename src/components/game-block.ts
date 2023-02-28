@@ -34,18 +34,23 @@ function showGameOver(
   );
   gameContainer?.remove();
 
+  const gameOverContainer = document.createElement("div");
+  gameOverContainer.classList.add("game-over-container");
+
   const gameOver = document.createElement("h1");
   gameOver.classList.add("game-over");
   gameOver.textContent = `${player.name} wins!`;
 
-  mainContentWrapper?.appendChild(gameOver);
+  gameOverContainer.appendChild(gameOver);
 
   // Ask the player if they want to play again
   const playAgain = document.createElement("button");
   playAgain.classList.add("play-again");
   playAgain.textContent = "Play Again";
 
-  mainContentWrapper?.appendChild(playAgain);
+  gameOverContainer.appendChild(playAgain);
+
+  mainContentWrapper?.appendChild(gameOverContainer);
 
   playAgain.addEventListener("click", () => {
     gameOver.remove();
@@ -100,17 +105,27 @@ function createGameBlock(game: GameType) {
   const gameContainer = document.createElement("div");
   gameContainer.classList.add("content-wrapper__game-container");
 
+  const playerWrapper = document.createElement("div");
+  playerWrapper.classList.add(`player-wrapper-${playerName}`);
+
   const playerBoardTitle = createBoardTitle(playerName);
   const playerBoard = renderBoard(playerName, game.playerShips);
   playerBoard.classList.remove("board-temp");
 
+  playerWrapper.appendChild(playerBoardTitle);
+  playerWrapper.appendChild(playerBoard);
+
+  const computerWrapper = document.createElement("div");
+  computerWrapper.classList.add(`player-wrapper-${computerName}`);
+
   const computerBoardTitle = createBoardTitle(computerName);
   const computerBoard = renderBoard(computerName, game.computerShips);
 
-  gameContainer.appendChild(playerBoardTitle);
-  gameContainer.appendChild(playerBoard);
-  gameContainer.appendChild(computerBoardTitle);
-  gameContainer.appendChild(computerBoard);
+  computerWrapper.appendChild(computerBoardTitle);
+  computerWrapper.appendChild(computerBoard);
+
+  gameContainer.appendChild(playerWrapper);
+  gameContainer.appendChild(computerWrapper);
 
   mainContentWrapper?.appendChild(gameContainer);
 

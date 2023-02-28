@@ -10,9 +10,14 @@ function populateMainBlock() {
   const contentWrapper = document.createElement("div");
   contentWrapper.classList.add("main__content-wrapper");
 
+  const title = document.createElement("h1");
+  title.classList.add("main__container-title");
+  title.textContent = "Battleship 44";
+
   const newGameContainer = setupNewGameBlock();
   contentWrapper.appendChild(newGameContainer);
 
+  mainContainer.appendChild(title);
   mainContainer.appendChild(contentWrapper);
   mainBlock?.appendChild(mainContainer);
 }

@@ -134,11 +134,11 @@ function setupPlayerShips(playerName: string) {
   const rotateButton = document.createElement("button");
   rotateButton.classList.add("temp-board__rotate-button");
 
-  rotateButton.textContent = "Rotate to Horizontal";
+  rotateButton.textContent = "Vertical 🔁";
   if (isHorizontal) {
-    rotateButton.textContent = "Rotate to Vertical";
+    rotateButton.textContent = "Horizontal 🔁";
   } else {
-    rotateButton.textContent = "Rotate to Horizontal";
+    rotateButton.textContent = "Vertical 🔁";
   }
 
   const tempBoard = renderBoard(playerName);
@@ -157,9 +157,9 @@ function setupPlayerShips(playerName: string) {
   rotateButton.addEventListener("click", () => {
     isHorizontal = !isHorizontal;
     if (isHorizontal) {
-      rotateButton.textContent = "Rotate to Vertical";
+      rotateButton.textContent = "Horizontal 🔁";
     } else {
-      rotateButton.textContent = "Rotate to Horizontal";
+      rotateButton.textContent = "Vertical 🔁";
     }
   });
 
