@@ -1,3 +1,4 @@
+import createFooter from "./footer";
 import setupNewGameBlock from "./setupNewGame-block";
 
 // Populate the main block with all components
@@ -17,9 +18,12 @@ function populateMainBlock() {
   const newGameContainer = setupNewGameBlock();
   contentWrapper.appendChild(newGameContainer);
 
+  const footer = createFooter();
+
   mainContainer.appendChild(title);
   mainContainer.appendChild(contentWrapper);
   mainBlock?.appendChild(mainContainer);
+  mainBlock?.appendChild(footer);
 }
 
 export default populateMainBlock;
