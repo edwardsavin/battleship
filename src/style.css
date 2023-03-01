@@ -302,27 +302,27 @@ svg {
 
 .ship[data-ship="Carrier"],
 .board__cell[data-hover-ship="Carrier"] {
-  background-color: blue;
+  background-color: hsl(215, 28%, 17%);
 }
 
 .ship[data-ship="Battleship"],
 .board__cell[data-hover-ship="Battleship"] {
-  background-color: green;
+  background-color: hsl(214, 31%, 27%);
 }
 
 .ship[data-ship="Destroyer"],
 .board__cell[data-hover-ship="Destroyer"] {
-  background-color: saddlebrown;
+  background-color: hsl(214, 33%, 32%);
 }
 
 .ship[data-ship="Submarine"],
 .board__cell[data-hover-ship="Submarine"] {
-  background-color: orange;
+  background-color: hsl(214, 34%, 39%);
 }
 
 .ship[data-ship="Patrol Boat"],
 .board__cell[data-hover-ship="Patrol Boat"] {
-  background-color: indigo;
+  background-color: hsl(212, 31%, 48%);
 }
 
 .board__cell {
@@ -333,7 +333,7 @@ svg {
 
 .board__cell[data-valid-placement="false"] {
   cursor: not-allowed;
-  background-color: rgb(199, 16, 16);
+  background-color: hsl(359, 88%, 39%);
 }
 
 .miss:before {
@@ -352,7 +352,7 @@ svg {
   align-items: center;
   justify-content: center;
   color: var(--clr-100);
-  background-color: rgb(216, 43, 24);
+  background-color: hsl(345, 50%, 26%);
   font-size: var(--fs-500);
 }
 
