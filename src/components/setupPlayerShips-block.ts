@@ -187,20 +187,38 @@ function setupPlayerShips(playerName: string) {
     const x = Number(target.dataset.x);
     const y = Number(target.dataset.y);
 
+    const errorParagraph = document.createElement("p");
+    errorParagraph.classList.add("temp-board__error");
+    errorParagraph.setAttribute("role", "alert");
+
+    // Remove the error paragraph if it already exists
+    const existingErrorParagraph = document.querySelector(
+      ".temp-board__error"
+    ) as HTMLParagraphElement;
+    if (existingErrorParagraph) {
+      existingErrorParagraph.remove();
+    }
+
     if (isOutOfBounds(x, y, shipToPlace.length, isHorizontal)) {
-      alert("Ship is out of bounds");
+      errorParagraph.textContent = "Ship is out of bounds.";
+      tempBoardContainer.insertBefore(errorParagraph, tempBoard);
+
       delete target.dataset.validPlacement;
       return;
     }
 
     if (isCellOccupied(target)) {
-      alert("This cell is already occupied by a ship");
+      errorParagraph.textContent = "This cell is already occupied by a ship.";
+      tempBoardContainer.insertBefore(errorParagraph, tempBoard);
+
       delete target.dataset.validPlacement;
       return;
     }
 
     if (!isPlacementValid(target)) {
-      alert("Cannot place ship on top of another ship");
+      errorParagraph.textContent = "Cannot place ship on top of another ship.";
+      tempBoardContainer.insertBefore(errorParagraph, tempBoard);
+
       delete target.dataset.validPlacement;
       return;
     }
@@ -209,7 +227,9 @@ function setupPlayerShips(playerName: string) {
     try {
       game.player.placeShip(shipToPlace, x, y, isHorizontal);
     } catch (error) {
-      alert(error);
+      if (error instanceof Error) {
+        errorParagraph.textContent = error.message;
+      }
       return;
     }
 

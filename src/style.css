@@ -13,9 +13,13 @@
   --ff-primary: "JetBrains Mono", monospace, -apple-system, BlinkMacSystemFont,
     avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu,
     roboto, noto, arial, sans-serif;
+  --ff-italic: "JetBrains Mono Italic", monospace, -apple-system,
+    BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica,
+    Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
 
   --ff-body: var(--ff-primary);
   --ff-heading: var(--ff-primary);
+  --ff-alert: var(--ff-italic);
 
   --fw-light: 300;
   --fw-regular: 400;
@@ -376,6 +380,13 @@ svg {
 .play-again {
   height: 4rem;
   font-size: var(--fs-450);
+}
+
+[role="alert"] {
+  font-family: var(--ff-alert);
+  font-size: var(--fs-400);
+  font-weight: var(--fw-bold);
+  color: hsl(359, 88%, 39%);
 }
 
 .footer {
