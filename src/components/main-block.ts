@@ -7,6 +7,7 @@ function populateMainBlock() {
 
   const mainContainer = document.createElement("div");
   mainContainer.classList.add("main__container");
+  mainContainer.style.justifyContent = "center";
 
   const contentWrapper = document.createElement("div");
   contentWrapper.classList.add("main__content-wrapper");

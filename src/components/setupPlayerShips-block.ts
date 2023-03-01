@@ -123,6 +123,11 @@ function validateShipPlacement(
 function setupPlayerShips(playerName: string) {
   removeSetupNewGameBlock();
 
+  const mainContainer = document.querySelector(
+    ".main__container"
+  ) as HTMLDivElement;
+  mainContainer.style.justifyContent = "flex-start";
+
   const mainContentWrapper = document.querySelector(".main__content-wrapper");
   const tempBoardContainer = document.createElement("div");
   tempBoardContainer.classList.add("content-wrapper__temp-board-container");

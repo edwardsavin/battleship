@@ -29,6 +29,16 @@ function showGameOver(
   enemy: PlayerType,
   mainContentWrapper: Element | null
 ) {
+  const mainContainer = document.querySelector(
+    ".main__container"
+  ) as HTMLDivElement;
+  mainContainer.style.justifyContent = "center";
+
+  const mainContainerTitle = document.querySelector(
+    ".main__container-title"
+  ) as HTMLHeadingElement;
+  mainContainerTitle.style.marginBottom = "0";
+
   const gameContainer = document.querySelector(
     ".content-wrapper__game-container"
   );
