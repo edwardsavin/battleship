@@ -19,8 +19,14 @@ function renderBoard(
     coordinates: number[][];
   }[]
 ) {
+  // Filter playerName to have lowercase letters, no spaces and no special characters
+  const filteredPlayerName = playerName
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-");
+
   const board = document.createElement("div");
-  board.classList.add(`board-${playerName}`);
+  board.classList.add(`board-${filteredPlayerName}`);
 
   createGridDOM(10, 10, board);
 

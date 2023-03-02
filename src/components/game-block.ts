@@ -80,8 +80,14 @@ function playerAttackDOM(
   player: PlayerType,
   enemy: ComputerType | PlayerType
 ) {
+  // Filter playerName to have lowercase letters, no spaces and no special characters
+  const filteredPlayerName = enemy.name
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-");
+
   const cell = document.querySelector(
-    `.board-${enemy.name} [data-x="${x}"][data-y="${y}"]`
+    `.board-${filteredPlayerName} [data-x="${x}"][data-y="${y}"]`
   );
 
   // Add the hit or miss class to the cell
@@ -110,13 +116,19 @@ function createGameBlock(game: GameType) {
   const playerName = game.player.name;
   const computerName = game.computer.name;
 
+  // Filter playerName to have lowercase letters, no spaces and no special characters
+  const filteredPlayerName = playerName
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-");
+
   const mainContentWrapper = getMainContentWrapper();
 
   const gameContainer = document.createElement("div");
   gameContainer.classList.add("content-wrapper__game-container");
 
   const playerWrapper = document.createElement("div");
-  playerWrapper.classList.add(`player-wrapper-${playerName}`);
+  playerWrapper.classList.add(`player-wrapper-${filteredPlayerName}`);
 
   const playerBoardTitle = createBoardTitle(playerName);
   const playerBoard = renderBoard(playerName, game.playerShips);

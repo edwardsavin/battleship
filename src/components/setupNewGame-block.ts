@@ -20,12 +20,12 @@ function setupNewGameBlock() {
       error.classList.add("new-game__error");
       error.setAttribute("role", "alert");
       error.textContent = "The name is required.";
-      // Append before the input field
+
       newGameContainer.insertBefore(error, inputPlayerName);
       return;
     }
 
-    const playerName = inputPlayerName.value;
+    const playerName = inputPlayerName.value.trim();
     setupPlayerShips(playerName);
   }
 
